@@ -19,19 +19,13 @@ function App() {
       "techs": ["React", "ReactNative", "TypeScript", "ContextApi"]
     });
 
-    const repository = response.data;
-
-    setRepositories([...repositories, repository]);
+    setRepositories([...repositories, response.data]);
   }
 
   async function handleRemoveRepository(id) {
-    const repositoryIndex = repositories.findIndex(repository => repository.id === id);
-
     await api.delete(`repositories/${id}`);
 
-    repositories.splice(repositoryIndex, 1);
-
-    setRepositories([...repositories]);
+    setRepositories(repositories.filter(repository => repository.id != id));
   }
 
   return (
